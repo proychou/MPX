@@ -1,2 +1,2 @@
-# MPX_WGS
+# MPX
 monkeypox genome assembly
