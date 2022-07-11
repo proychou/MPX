@@ -86,7 +86,7 @@ mkdir -p ./preprocessed_fastq
 bbduk.sh in1='./trimmed_fastq/'$sampname'_trimmed_r1.fastq.gz' in2='./trimmed_fastq/'$sampname'_trimmed_r2.fastq.gz' out1='./preprocessed_fastq/'$sampname'_preprocessed_paired_r1.fastq.gz' out2='./preprocessed_fastq/'$sampname'_preprocessed_paired_r2.fastq.gz' t=$SLURM_CPUS_PER_TASK qtrim=rl trimq=20 maq=10 overwrite=TRUE minlen=20
 
 #Use bbduk to filter reads that match HSV genomes--not tested
-if [[ $filter == "true" ]]
+# if [[ $filter == "true" ]]
 # then
 # printf "\n\nK-mer filtering using hsv_refs.fasta ... \n\n\n"
 # mkdir -p ./filtered_fastq/
@@ -96,7 +96,7 @@ if [[ $filter == "true" ]]
 # rm './filtered_fastq/'$sampname'_unmatched_r1.fastq.gz' './filtered_fastq/'$sampname'_unmatched_r2.fastq.gz' 
 # mv './filtered_fastq/'$sampname'_matched_r1.fastq.gz' './preprocessed_fastq/'$sampname'_preprocessed_paired_r1.fastq.gz'
 # mv './filtered_fastq/'$sampname'_matched_r2.fastq.gz' './preprocessed_fastq/'$sampname'_preprocessed_paired_r2.fastq.gz'
-fi
+# fi
 
 #FastQC report on processed reads
 mkdir -p ./fastqc_reports_preprocessed
