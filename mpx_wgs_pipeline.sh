@@ -124,7 +124,7 @@ rm -r './contigs/'$sampname'/corrected'
 #not tested#
 
 else 
-if [[ $paired == "false" ]]
+# if [[ $paired == "false" ]]
 # then
 # if [ -z $in_fastq ]
 # then
@@ -179,7 +179,7 @@ if [[ $paired == "false" ]]
 # spades.py -s './preprocessed_fastq/'$sampname'_preprocessed.fastq.gz' -o './contigs/'$sampname --careful -t ${SLURM_CPUS_PER_TASK}
 # 
 # fi
-fi
+# fi
 
 
 
