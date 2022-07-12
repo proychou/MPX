@@ -260,7 +260,7 @@ fi
 printf "\n\nGenerating consensus sequence ... \n\n\n"
 mkdir -p ./consensus_seqs
 mkdir -p ./stats
-Rscript --vanilla mpx_generate_consensus.R sampname=\"$sampname\"
+Rscript --vanilla mpx_generate_consensus.R sampname=\"$sampname\" ref=\"$ref\"
 
 #Annotate
 printf "\n\nAnnotating with prokka ... \n\n\n"
