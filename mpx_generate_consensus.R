@@ -36,7 +36,7 @@ if(length(args)==0){
 #Files, directories, target site
 merged_bam_folder<-'./remapped_reads/'; 
 mapped_reads_folder<-'./mapped_reads/';
-con_seqs_dir<-'./consensus_seqs_all';
+con_seqs_dir<-'./consensus_seqs';
 
 #Make consensus sequences against reference--returns TRUE if this worked
 conseq<-clean_consensus_mpx(sampname,merged_bam_folder,mapped_reads_folder);

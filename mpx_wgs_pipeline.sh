@@ -105,7 +105,7 @@ fastqc './preprocessed_fastq/'$sampname'_preprocessed_paired_r1.fastq.gz' './pre
 
 
 #Map reads to reference
-printf "\n\nMapping reads to reference seqs hsv1_ref, hsv2_ref_hg52 and hsv2_sd90e ... \n\n\n"
+printf "\n\nMapping reads to reference seq ... \n\n\n"
 mkdir -p ./mapped_reads
 ref=mpx_ref
 bowtie2 -x ./refs/$ref -1 './preprocessed_fastq/'$sampname'_preprocessed_paired_r1.fastq.gz' -2 './preprocessed_fastq/'$sampname'_preprocessed_paired_r2.fastq.gz' -p ${SLURM_CPUS_PER_TASK} -S './mapped_reads/'$sampname'_'$ref'.sam'
@@ -189,7 +189,7 @@ ref=mpx_ref
 # for ref in hsv1_ref hsv2_ref_hg52 hsv2_sd90e; do
 if [ -f './mapped_reads/'$sampname'_'$ref'.sam' ]
 then
-samtools view -bh -o './mapped_reads/'$sampname'_'$ref'.bam' './mapped_reads/'$sampname'_'$ref'.sam' -T ./refs/$ref'.fasta'  
+samtools view -bh -F 4 -o './mapped_reads/'$sampname'_'$ref'.bam' './mapped_reads/'$sampname'_'$ref'.sam' -T ./refs/$ref'.fasta'  
 rm './mapped_reads/'$sampname'_'$ref'.sam'
 samtools sort -o './mapped_reads/'$sampname'_'$ref'.sorted.bam' './mapped_reads/'$sampname'_'$ref'.bam' 
 rm './mapped_reads/'$sampname'_'$ref'.bam' 
@@ -199,7 +199,7 @@ fi
 # done
 
 
-printf "\n\nMapping scaffolds to reference seqs hsv1_ref, hsv2_ref_hg52 and hsv2_sd90e ... \n\n\n"
+printf "\n\nMapping scaffolds to reference seq ... \n\n\n"
 # for ref in hsv1_ref hsv2_ref_hg52 hsv2_sd90e; do
 mugsy --directory `readlink -f './contigs/'$sampname` --prefix 'aligned_scaffolds_'$ref ./refs/$ref'.fasta' `readlink -f './contigs/'$sampname'/scaffolds.fasta'`
 sed '/^a score=0/,$d' './contigs/'$sampname'/aligned_scaffolds_'$ref'.maf' > './contigs/'$sampname'/aligned_scaffolds_nonzero_'$ref'.maf'
@@ -216,7 +216,7 @@ mkdir -p ./ref_for_remapping
 # for ref in hsv1_ref hsv2_ref_hg52 hsv2_sd90e; do
 bamfname='./contigs/'$sampname'/'$sampname'_aligned_scaffolds_'$ref'.bam'
 reffname=./refs/$ref'.fasta'
-Rscript --vanilla hsv_make_reference.R bamfname=\"$bamfname\" reffname=\"$reffname\" 
+Rscript --vanilla mpx_make_reference.R bamfname=\"$bamfname\" reffname=\"$reffname\" 
 # done
 
 
@@ -240,7 +240,7 @@ fi
 if [[ $paired == "true" ]]
 then
 # for ref in hsv1_ref hsv2_ref_hg52 hsv2_sd90e; do
-bowtie2 -x './ref_for_remapping/'$sampname'_aligned_scaffolds_'$ref -1 './preprocessed_fastq/'$sampname'_preprocessed_paired_r1.fastq.gz' -2 './preprocessed_fastq/'$sampname'_preprocessed_paired_r2.fastq.gz' -p ${SLURM_CPUS_PER_TASK} | samtools view -bS - > './remapped_reads/'$sampname'_'$ref'.bam'
+bowtie2 -x './ref_for_remapping/'$sampname'_aligned_scaffolds_'$ref -1 './preprocessed_fastq/'$sampname'_preprocessed_paired_r1.fastq.gz' -2 './preprocessed_fastq/'$sampname'_preprocessed_paired_r2.fastq.gz' -p ${SLURM_CPUS_PER_TASK} | samtools view -bS -F 4 - > './remapped_reads/'$sampname'_'$ref'.bam'
 # done
 fi
 
