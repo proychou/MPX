@@ -65,7 +65,7 @@ then
 echo "Missing input argument."
 fi
 
-sampname=$(basename ${in_fastq_r1%%_R1_001.fastq*})
+sampname=$(basename ${in_fastq_r1%%_R1*.fastq*})
 
 #FastQC report on raw reads
 printf "\n\nFastQC report on raw reads ... \n\n\n"
@@ -230,6 +230,7 @@ bowtie2-build './ref_for_remapping/'$sampname'_aligned_scaffolds_'$ref'_consensu
 
 #not tested
 if [[ $paired == "false" ]]
+then
 printf "unpaired not tested!"
 # then
 # for ref in hsv1_ref hsv2_ref_hg52 hsv2_sd90e; do
