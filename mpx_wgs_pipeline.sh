@@ -258,9 +258,9 @@ fi
 
 #Call R script to merge bams and generate a consensus sequence
 printf "\n\nGenerating consensus sequence ... \n\n\n"
-mkdir -p ./consensus_seqs_all
+mkdir -p ./consensus_seqs
 mkdir -p ./stats
-Rscript --vanilla hsv_generate_consensus.R sampname=\"$sampname\"
+Rscript --vanilla mpx_generate_consensus.R sampname=\"$sampname\"
 
 #Annotate
 printf "\n\nAnnotating with prokka ... \n\n\n"

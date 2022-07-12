@@ -39,7 +39,7 @@ mapped_reads_folder<-'./mapped_reads/';
 con_seqs_dir<-'./consensus_seqs';
 
 #Make consensus sequences against reference--returns TRUE if this worked
-conseq<-clean_consensus_mpx(sampname,merged_bam_folder,mapped_reads_folder);
+conseq<-clean_consensus_mpx(sampname,merged_bam_folder,mapped_reads_folder,ref);
 
 #Prepare seqs for annotation 
 if(conseq==TRUE){
